@@ -6,11 +6,35 @@
     <title></title>
     <script src="js/mui.min.js"></script>
     <link href="css/mui.min.css" rel="stylesheet"/>
-    <script type="text/javascript" charset="utf-8">
-      	mui.init();
-    </script>
+    
+    <script type="text/javascript" src="js/auto.js" ></script>
+    <style>
+    	.mui-content{
+    		padding-top:3rem ;
+    	}
+    	.mui-content button{
+    		margin: 0.15rem 0 0.15rem 0;
+    		padding: 0;
+    		height: 1.2rem;
+    		line-height: 1.2rem !important;
+    		font-size: 0.4rem;
+    	}
+    </style>
 </head>
 <body>
-	<button type="button" class="mui-btn mui-btn-blue mui-btn-block">新游戏</button>
+	<div class="mui-content">
+		<button type="button" class="mui-btn mui-btn-blue mui-btn-block">继续游戏</button>
+		<button id="new_game" type="button" class="mui-btn mui-btn-green mui-btn-block">新游戏</button>
+		<button type="button" class="mui-btn mui-btn-red mui-btn-block">退出游戏</button>
+	</div>
 </body>
+<script type="text/javascript" charset="utf-8">
+      	mui.init();
+      	document.getElementById('new_game').addEventListener('tap',function(){
+      		mui.openWindow({
+      			url:"tetris.html",
+      			id:"tetris"
+      		})
+      	})
+    </script>
 </html>
