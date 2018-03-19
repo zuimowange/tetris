@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>俄罗斯方块</title>
+		<script type="text/javascript" src="js/auto.js" ></script>
+		<style>
+			*{margin:0;padding: 0;font-size: 0.5rem;}
+			body{
+				background: #909291;
+			}
+			#title{
+				width: 7.5rem;
+				height: 1rem;
+				line-height: 1.2rem;
+				text-align: center;
+				font-size: 0.44rem;
+			}
+			#score_div{
+				width: 7.5rem;
+				height: 1rem;
+				line-height: 1rem;
+				text-align: center;
+				font-size: 0.44rem;
+			}
+			#score{color: wheat;s}
+			#top{
+				box-shadow:0rem 0rem 0.5rem 0rem #666666  inset;
+				color:#555555;
+				padding-top: 0.3rem;
+				padding-bottom: 0.3rem;
+			}
+			#mbody{
+				position: absolute;
+				top: 2.6rem;
+				bottom: 0;
+				left: 0;
+				right: 0;
+			}
+			#mbody>div:first-of-type{
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				left: 0;
+				right: 2.7rem;
+				box-shadow:0rem 0rem 0.5rem 0rem #666666  inset;
+			}
+			#mbody>div:last-of-type{
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				left: 4.8rem;
+				right: 0;
+				box-shadow:0rem 0rem 0.5rem 0rem #666666  inset;
+			}
+			#next{
+				width: 2rem;
+				height: 2rem;
+				box-shadow:0rem 0rem 0.3rem 0rem #666666  inset;
+				margin: auto;
+				margin-top: 0.8rem;
+			}
+			#btn{
+				padding-top: 1rem;
+			}
+			
+			#btn>div{
+				display: flex;
+				display: -webkit-flex;
+				justify-content: space-around;
+			}
+			#btn img{
+				width: 1rem;
+				height: 1rem;
+			}
+			#show{
+				width: 4.1rem;
+				height: 8.1rem;
+				border: 0.05rem solid #888888;
+				margin: auto;
+				margin-top: 0.8rem;
+				font-size: 0;
+			}
+			#show img{
+				width: 0.4rem;
+				height: 0.4rem;
+			}
+			
+			#tetris{width: 4rem;height: 8rem;}
+		</style>
+	</head>
+	<body>
+		<div id="top">
+			<div id="title">俄罗斯方块</div>
+			<div id="score_div">分数：<span id="score">0</span></div>
+		</div>
+		
+		<div id="mbody">
+			<div>
+				<div id="show">
+					<canvas id="tetris" class="tetris" width="240" height="420"></canvas>
+				</div>
+			</div>
+			<div>
+				<div id="next"></div>
+				<div id="btn">
+					<div><img id="topBtn" src="img/top.png"/></div>
+					<div><img id="leftBtn" src="img/left.png"/><img id="rightBtn" src="img/right.png"/></div>
+					<div><img id="bottomBtn" src="img/bottom.png"/></div>
+					<div style="margin-top: 0.8rem;"><img id="stopBtn" src="img/play.png"/></div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="js/tetris.js" ></script>
+</html>
