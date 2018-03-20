@@ -88,6 +88,10 @@
 			}
 			
 			#tetris{width: 4rem;height: 8rem;}
+			#nexts{
+				width: 2rem;
+				height: 2rem;
+			}
 		</style>
 	</head>
 	<body>
@@ -103,15 +107,18 @@
 				</div>
 			</div>
 			<div>
-				<div id="next"></div>
+				<div id="next">
+					<canvas id="nexts" class="nexts" width="120" height="120"></canvas>
+				</div>
 				<div id="btn">
 					<div><img id="topBtn" src="img/top.png"/></div>
 					<div><img id="leftBtn" src="img/left.png"/><img id="rightBtn" src="img/right.png"/></div>
 					<div><img id="bottomBtn" src="img/bottom.png"/></div>
-					<div style="margin-top: 0.8rem;"><img id="stopBtn" src="img/play.png"/></div>
+					<div style="margin-top: 0.8rem;"><img id="stopBtn" src="img/stop.png"/><img style="display: none;" id="playBtn" src="img/play.png"/></div>
 				</div>
 			</div>
 		</div>
 	</body>
+	<script type="text/javascript" src="js/mui.min.js" ></script>
 	<script type="text/javascript" src="js/tetris.js" ></script>
 </html>

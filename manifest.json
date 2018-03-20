@@ -1,6 +1,6 @@
 {
 	"@platforms": ["android", "iPhone", "iPad"],
-	"id": "",/*应用的标识，创建应用时自动生成，勿手动修改*/
+	"id": "H5901407A",/*应用的标识，创建应用时自动生成，勿手动修改*/
 	"name": "tetris",/*应用名称，程序桌面图标名称*/
 	"version": {
 		"name": "1.0.0",/*应用版本名称*/
@@ -188,6 +188,47 @@
 					"xxhdpi": ""
 				}
 			}
+		}
+	},
+	"dependencies": {
+		"pages": {
+			"index.html": {
+				"resources": [
+					"js/mui.min.js",
+					"css/mui.min.css",
+					"js/auto.js"
+				],
+				"refer": [
+					"tetris.html"
+				],
+				"priority": 0
+			},
+			"tetris.html": {
+				"resources": [
+					"img/null.png",
+					"img/bottom.png",
+					"img/top.png",
+					"img/play.png",
+					"img/cell.png",
+					"img/left.png",
+					"js/tetris.js",
+					"img/right.png",
+					"js/auto.js",
+					"js/mui.min.js",
+					"img/stop.png"
+				],
+				"refer": [
+					"index.html"
+				],
+				"priority": 0
+			}
+		},
+		"idle": {
+			"resources": [
+				"fonts/mui.ttf",
+				"js/mui.js",
+				"css/mui.css"
+			]
 		}
 	}
 }

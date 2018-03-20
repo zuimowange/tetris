@@ -38,6 +38,7 @@
         }
     }
 
+	var that;
     /**
      * @param c canvas DOM对象
      * @param imga img对象数组
@@ -103,21 +104,25 @@
                 return this.speed == this.defer;
             }
         }
+        
+        
         var Blocks = {
             nullimg: imga['null.png'],
             cellimg: imga['cell.png'],
             pause: false, // 游戏是否处于暂停中
             matrix: new Array(21), // 矩阵，-1表示空，0表示正在移动，1表示已存在
             block: new Block(1), // 默认第一个出现的方块类型为1
+            nextBlock:new Block(parseInt(Math.random() * 5) + 1),//下一个出现的方块
             score: 0, // 分数累计
             init: function () {
-                var that = this, code = null;
+                that = this, code = null;
                 for(var i = 0; i < 21; i ++) { // 初始化矩阵数组
                     this.matrix[i] = new Array(12);
                     for (var j = 0; j < 12; j ++) {
                         this.matrix[i][j] = -1;
                         ctx.drawImage(this.nullimg, j * cell, i * cell, this.nullimg.width, this.nullimg.height);
                     }
+                    that.nextBlockShow();//显示下一步
                 }
                 document.onkeydown = function (e) { // 按键事件
                     code = e.keyCode || e.which;
@@ -247,9 +252,49 @@
                             }
                         }
                         that.ruinMat(); // 检测是否需要爆破行，如果有则执行爆破操作
-                        that.block = new Block(parseInt(Math.random() * 5) + 1);
+                        that.block = that.nextBlock;
+                        that.nextBlock = new Block(parseInt(Math.random() * 5) + 1);
+                        that.nextBlockShow();
                     }
                 }
+            },
+            
+            nextBlockShow:function(){//下一个方块的绘制
+            	var n_img = new Image();
+            	n_img.src = 'img/cell.png';
+            	n_img.width = 20;
+            	n_img.height = 20;
+            	n_ctx.clearRect(0,0,n.width,n.height);
+            	if(that.nextBlock.type == 1){
+            		n_ctx.drawImage(n_img,50,20,n_img.width,n_img.height);
+            		n_ctx.drawImage(n_img,50,40,n_img.width,n_img.height);
+            		n_ctx.drawImage(n_img,50,60,n_img.width,n_img.height);
+            		n_ctx.drawImage(n_img,50,80,n_img.width,n_img.height);
+            	}
+            	else if(that.nextBlock.type == 2){
+            		n_ctx.drawImage(n_img,50,40,n_img.width,n_img.height);
+            		n_ctx.drawImage(n_img,30,60,n_img.width,n_img.height);
+            		n_ctx.drawImage(n_img,50,60,n_img.width,n_img.height);
+            		n_ctx.drawImage(n_img,70,60,n_img.width,n_img.height);
+            	}
+            	else if(that.nextBlock.type == 3){
+            		n_ctx.drawImage(n_img,40,30,n_img.width,n_img.height);
+            		n_ctx.drawImage(n_img,40,50,n_img.width,n_img.height);
+            		n_ctx.drawImage(n_img,40,70,n_img.width,n_img.height);
+            		n_ctx.drawImage(n_img,60,70,n_img.width,n_img.height);
+            	}
+            	else if(that.nextBlock.type == 4){
+            		n_ctx.drawImage(n_img,40,40,n_img.width,n_img.height);
+            		n_ctx.drawImage(n_img,40,60,n_img.width,n_img.height);
+            		n_ctx.drawImage(n_img,60,40,n_img.width,n_img.height);
+            		n_ctx.drawImage(n_img,60,60,n_img.width,n_img.height);
+            	}
+            	else if(that.nextBlock.type == 5){
+            		n_ctx.drawImage(n_img,40,30,n_img.width,n_img.height);
+            		n_ctx.drawImage(n_img,40,50,n_img.width,n_img.height);
+            		n_ctx.drawImage(n_img,60,50,n_img.width,n_img.height);
+            		n_ctx.drawImage(n_img,60,70,n_img.width,n_img.height);
+            	}
             },
             detectMat: function () { // 检测矩阵，判断是否有连续一行，返回一个数组
                 var count = 0, s,
@@ -277,7 +322,11 @@
             },
             gameOver: function () {
                 clearInterval(time);
-                alert('你挂了');
+                alert('gameOver');
+                mui.openWindow({
+	      			url:"index.html",
+	      			id:"index"
+	      		})
             }
         };
         Blocks.init();
@@ -289,6 +338,9 @@
     c.setAttribute('height', 420 > window.innerHeight ? window.innerHeight.toString() : '420');
     c.setAttribute('width', 240 > window.innerWidth ? window.innerWidth.toString() : '240');
 
+	var n = document.getElementById('nexts');
+	var n_ctx = n.getContext('2d');
+	
     var oimgarr = {}; // 全局变量
     loadAllImg(['null.png','cell.png'],
         parseInt(c.getAttribute('width')) / 240, function () {
@@ -296,4 +348,39 @@
         }
     );
 
+	//上
+	document.getElementById('topBtn').addEventListener('tap',function(){
+		that.rotateBlock();
+	})
+	//左
+	document.getElementById('leftBtn').addEventListener('tap',function(){
+		that.setSite(-1);
+	})
+	//右
+	document.getElementById('rightBtn').addEventListener('tap',function(){
+		that.setSite(1);
+	})
+	//下
+	document.getElementById('bottomBtn').addEventListener('tap',function(){
+		if(that.block.speed == config.SPEED)
+            that.block.speedUp(); // 加速
+	})
+	//下弹起
+	/*document.getElementById('bottomBtn').addEventListener('blur',function(){
+		if(that.block.speed == config.SPEED)
+            that.block.isReady(); // 恢复最初速度
+	})*/
+	//暂停
+	document.getElementById('stopBtn').addEventListener('tap',function(){
+		that.suspend();
+		document.getElementById("stopBtn").style.display="none"; 
+		document.getElementById("playBtn").style.display="block";
+	})
+	//开始
+	document.getElementById('playBtn').addEventListener('tap',function(){
+		document.getElementById("stopBtn").style.display="block";
+		document.getElementById("playBtn").style.display="none";
+		that.start();
+	})
+	
 })();
